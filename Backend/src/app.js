@@ -3,6 +3,7 @@ const app = express();
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import cors from "cors";
+import taskRoutes from "./routes/task.routes.js";
 
 const port = process.env.PORT || 5000;
 
@@ -16,6 +17,7 @@ const startApp = function() {
         app.use(cors({origin:process.env.FRONTEND_URL,credentials: true}));
 
         app.use('/api/auth',authRoutes);
+        app.use('/api/task', taskRoutes);
 
 
         app.listen(port,() => {

@@ -165,17 +165,81 @@ Base URL: `/api/auth`
 
 ---
 
-## Project Structure
+## Task API
 
-- `src/app.js`: Express app setup
-- `src/index.js`: Entry point
-- `src/controllers/authticate.controller.js`: Auth route handlers
-- `src/models/user.model.js`: User schema/model
-- `src/middlewares/auth.middleware.js`: Auth middleware
-- `src/routes/auth.routes.js`: Auth routes
-- `src/utils/auth.util.js`: JWT utilities
-- `src/db/db-index.js`: DB connection
+All routes are protected and require authentication.
+
+### Create Task
+
+**POST /api/task**
+
+**Body:**
+```json
+{
+  "title": "string",
+  "description": "string (optional)",
+  "category": "string"
+}
+```
+**Response:**
+- `201 Created`
+    ```json
+    { "success": true, "task": { ...taskObject } }
+    ```
+- `400 Bad Request`
+    ```json
+    { "success": false, "message": "Title and category are required." }
+    ```
 
 ---
 
-##
+### Get All Tasks
+
+**GET /api/task**
+
+**Response:**
+- `200 OK`
+    ```json
+    { "success": true, "tasks": [ ... ] }
+    ```
+
+---
+
+### Update Task
+
+**PUT /api/task/:id**
+
+**Body:** (any fields to update)
+```json
+{
+  "title": "string",
+  "description": "string",
+  "category": "string",
+  "isDone": true
+}
+```
+**Response:**
+- `200 OK`
+    ```json
+    { "success": true, "task": { ...updatedTask } }
+    ```
+- `404 Not Found`
+    ```json
+    { "success": false, "message": "Task not found." }
+    ```
+
+---
+
+### Delete Task
+
+**DELETE /api/task/:id**
+
+**Response:**
+- `200 OK`
+    ```json
+    { "success": true, "message": "Task deleted." }
+    ```
+- `404 Not Found`
+    ```json
+    { "success": false, "message": "Task not found." }
+    ```
